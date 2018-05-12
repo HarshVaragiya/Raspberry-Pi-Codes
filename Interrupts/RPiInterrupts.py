@@ -24,8 +24,7 @@ class NewThread(threading.Thread):
             self.trigger = True
         elif SIGNAL_DEF == "FALLING":
             self.trigger = False
-        else:
-            # custom definition 
+        else:                                       # custom definition 
             pass
         self.time_delay = time_delay
         print("Attached Software Timer Interrupt!")
@@ -53,16 +52,17 @@ def attachInterrupt(Pin,Function,Signal,frequency=-1):
         SpawnedThread.daemon = True
         SpawnedThread.start()
         threads.append(SpawnedThread)
+        interrupt_thread_count +=1
         return SpawnedThread.return_thread_id()
     except:
         print("Unable to Attach Software Interrupt!")
         return -1
         
-
 def detatchInterrupt(threadId):
     for thread in threads:
         if (threadId == thread.return_thread_id):
             thread.stop()
+            threads.remove(thread)
             return 1    # if thread is stopped
     return -1           # if thread ID is not found .
 
