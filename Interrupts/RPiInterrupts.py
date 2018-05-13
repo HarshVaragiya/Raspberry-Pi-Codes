@@ -8,7 +8,6 @@ GPIO.setmode(GPIO.BCM)
 def process_pin_data(PIN):
     # basically the pin check function for the deamon thread
     # change for different checking condition
-    GPIO.setup(PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     return GPIO.input(4)
 
 interrupt_thread_count = 0 
@@ -24,9 +23,10 @@ class NewThread(threading.Thread):
             self.trigger = True
         elif SIGNAL_DEF == "FALLING":
             self.trigger = False
-        else:                                       # custom definition 
+        else:                                                                   # custom definition 
             pass
         self.time_delay = time_delay
+        GPIO.setup(self.Target_Pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)        #pull_up or pull_down change...
         print("Attached Software Timer Interrupt!")
 
     def run(self):
