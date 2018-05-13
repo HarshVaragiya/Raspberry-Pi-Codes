@@ -60,7 +60,7 @@ def attachInterrupt(Pin,Function,Signal,frequency=-1):
         
 def detatchInterrupt(threadId):
     for thread in threads:
-        if (threadId == thread.return_thread_id):
+        if (threadId == thread.return_thread_id()):
             thread.stop()
             threads.remove(thread)
             return 1    # if thread is stopped
